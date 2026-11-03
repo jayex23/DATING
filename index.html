@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>A Little Question 💕</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffd6e7, #ffb3c6, #ffc8dd);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 30px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(255, 95, 140, 0.25);
+      animation: pop 0.4s ease;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #d6336c;
+      margin-bottom: 10px;
+    }
+
+    .emoji-big {
+      font-size: 4rem;
+      margin: 15px 0;
+      display: inline-block;
+    }
+
+    .btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    button {
+      font-size: 1.05rem;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s;
+      font-weight: 600;
+    }
+
+    button:hover { transform: scale(1.05); }
+    button:active { transform: scale(0.97); }
+
+    .primary { background: #ff5c8a; color: white; }
+    .primary:hover { background: #ff3d75; }
+
+    .secondary { background: #ffe3ec; color: #d6336c; }
+    .secondary:hover { background: #ffd0de; }
+
+    .screen { display: none; }
+    .screen.active { display: block; animation: pop 0.4s ease; }
+
+    .crying {
+      font-size: 5rem;
+      animation: shake 0.5s infinite;
+      display: inline-block;
+    }
+
+    .tears {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      animation: drop 1.2s infinite;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      font-size: 22px;
+      animation: float linear forwards;
+    }
+
+    .chat { text-align: left; display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+    .bubble { max-width: 80%; padding: 10px 14px; border-radius: 18px; font-size: 0.98rem; line-height: 1.4; }
+    .them { background: #ffe3ec; color: #7a1f3d; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .me { background: #ff5c8a; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+    @keyframes pop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-8deg); }
+      75% { transform: rotate(8deg); }
+    }
+
+    @keyframes drop {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(15px); opacity: 0; }
+    }
+
+    @keyframes float {
+      to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <!-- Screen 1: How are you? -->
+  <div class="card screen active" id="screen1">
+    <div class="emoji-big">🙂</div>
+    <h1>Hi Po 👋, Kamusta Po?</h1>
+    <div class="btns">
+      <button class="primary" onclick="goTo('ligawan')">Okay Lang</button>
+      <button class="primary" onclick="goTo('screenNotFine')">Hindi Okay 🥺</button>
+    </div>
+  </div>
+
+  <!-- Screen: Not fine -->
+  <div class="card screen" id="screenNotFine">
+    <div class="emoji-big">🥺</div>
+    <h1>Luh! Bakit Pagod kaba or Malungkot O walang Pera?</h1>
+    <div class="btns">
+      <button class="secondary" onclick="goTo('screenSad')">😢 Sad</button>
+      <button class="secondary" onclick="goTo('screenTired')">😴 Tired</button>
+      <button class="secondary" onclick="goTo('walangpera')">Walang Pera😢</button>
+    </div>
+  </div>
+
+  <!-- Screen: Sad -->
+  <div class="card screen" id="screenSad">
+    <div class="emoji-big">💭</div>
+    <h1>Bakit Ano bang pwedeng gawin para lang maging masaya ka?</h1>
+    <p style="color:#777; margin-top:8px;">Hmmmm Labs tayo? 💕</p>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screenCanDate')">Labas? Tara 💕</button>
+    </div>
+  </div>
+<div class="card screen" id="walangpera">
+    <div class="emoji-big">🤣</div>
+    <h1>Nako Walakang Pera Haha?</h1>
+    <p style="color:#777; margin-top:8px;">Same Tayo wala Narin Akong Pera hahaha </p>
+    <div class="btns">
+      <button class="primary" onclick="goTo('movieMarathon')">Movie Marathon Nalang tayo ano G? haha</button>
+    </div>
+  </div>
+  <div class="card screen" id="movieMarathon">
+    <div class="emoji-big">🤣</div>
+    <h1>Ano  Mas prefer mo na movie</h1>
+    <p style="color:#777; margin-top:8px;">Same Tayo wala Narin Akong Pera hahaha </p>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screenCanDate')">Movie Marathon Nalang tayo ano G? haha</button>
+    </div>
+    
+  </div>
+  <!-- Screen: Tired -->
+  <div class="card screen" id="screenTired">
+    <div class="emoji-big">🤍</div>
+    <h1>lahat Tayo Napapagod Pahinga mo lang yan laban lang🤍</h1>
+    <p style="color:#777; margin-top:8px;">Nakakapagod talaga harapin ang realidad pero dito na tayo e kaya laban</p>
+    
+  </div>
+
+  <!-- Screen: Can a date make you happy -->
+  <div class="card screen" id="screenCanDate">
+    <div class="emoji-big">🌹</div>
+    <h1>Labas Tayo Ha walang Atrasan sagot ko Na</h1>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screen3')">Tara 💕</button>
+      <button class="secondary" id="noBtn" onclick="moveNo(event)" onmouseenter="moveNo(event)" ontouchstart="moveNo(event)">Nag Bago isip ko</button>
+    </div>
+  </div>
+
+  <!-- Screen 2: I love u -->
+  <div class="card screen" id="screen2">
+    <div class="emoji-big">💌</div>
+    <h1>I love u po </h1>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screen3')">I love u too 💕</button>
+      <button class="secondary" onclick="goTo('screen4')">I don't love you</button>
+    </div>
+  </div>
+<div class="card screen" id="ligawan">
+    <div class="emoji-big">💌</div>
+    <h1>Pwede ba kitang ligawan?</h1>
+    <div class="btns">
+     <button class="primary" onclick="goTo('screen2')">Yes 💕</button>
+      <button class="secondary" id="noBtn1" onclick="moveNo(event)" onmouseenter="moveNo(event)" ontouchstart="moveNo(event)">No</button>
+    </div>
+    </div>
+  </div>
+  <!-- Screen 3: Date or movie marathon -->
+  <div class="card screen" id="screen3">
+    <div class="emoji-big">🎉</div>
+    <h1>Yes Yes Yes haha!</h1>
+    <p style="color:#777; margin-top:8px;">pwede ba kitang yayain mag date o mag movie marathon?</p>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screenCalendar')">🌹 Date</button>
+      <button class="primary" onclick="goTo('screenMovie')">🍿 Movie Marathon</button>
+    </div>
+  </div>
+
+  <!-- Screen 4: Crying -->
+  <div class="card screen" id="screen4">
+    <div class="crying">😭</div>
+    <div class="tears">💧💧💧</div>
+    <h1 style="margin-top:15px;">Luh di moko mahal? Ha?😢</h1>
+    <p style="color:#777; margin-top:8px;">Ansakit Ansakit sobra pumayag ka na ligawan kita per dimoko mahal...</p>
+    <div class="btns">
+      <button class="secondary" onclick="goTo('screen2')">Mag i i love u too ka o iiyak ako boung araw haha</button>
+    </div>
+  </div>
+  <!-- Screen: Calendar to pick the date -->
+  <div class="card screen" id="screenCalendar">
+    <div class="emoji-big">📅</div>
+    <h1>Pick a day</h1>
+    <p style="color:#777; margin-top:8px;">Kailan tayo lalabas?</p>
+    <input type="date" id="pickDate" style="margin-top:20px; font-size:1.05rem; padding:12px; border-radius:14px; border:2px solid #ffb3c6; color:#d6336c; width:100%;">
+    <p id="pickHint" style="color:#d6336c; margin-top:10px; min-height:1.2em;"></p>
+    <div class="btns">
+      <button class="primary" onclick="confirmDate()">Confirm date 💕</button>
+      <button class="secondary" onclick="goTo('screen3')">Back</button>
+    </div>
+  </div>
+<div class="card screen" id="screenCalendar1">
+    <div class="emoji-big">📅</div>
+    <h1>Pick a day</h1>
+    <p style="color:#777; margin-top:8px;">Kailan Tayo Mag Momovie Marathon?</p>
+    <input type="date" id="pickDate" style="margin-top:20px; font-size:1.05rem; padding:12px; border-radius:14px; border:2px solid #ffb3c6; color:#d6336c; width:100%;">
+    <p id="pickHint" style="color:#d6336c; margin-top:10px; min-height:1.2em;"></p>
+    <div class="btns">
+      <button class="primary" onclick="confirmDate()">Confirm date 💕</button>
+      <button class="secondary" onclick="goTo('screen3')">Back</button>
+    </div>
+  </div>
+  <!-- Screen: Date chosen -->
+  <div class="card screen" id="screenDate">
+    <div class="emoji-big">🥰</div>
+    <h1>Yay, it's a date!</h1>
+    <p id="dateText" style="color:#777; margin-top:8px;">I'll plan something special 🌹</p>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screenChat')">Continue 💬</button>
+    </div>
+  </div>
+
+  <!-- Screen: Movie marathon chosen -->
+  <div class="card screen" id="screenMovie">
+    <div class="emoji-big">🍿</div>
+    <h1>Movie marathon na dis !</h1>
+    <p style="color:#777; margin-top:8px;">Sakin na pagkain sagot ko na🎬</p>
+    <div class="btns">
+      <button class="primary" onclick="goTo('screenCalendar1')">Kailan?💬</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('pickDate').min = new Date().toISOString().slice(0, 10);
+
+    function confirmDate() {
+      const val = document.getElementById('pickDate').value;
+      if (!val) {
+        document.getElementById('pickHint').textContent = 'Please pick a day first 🗓️';
+        return;
+      }
+      const d = new Date(val + 'T00:00:00');
+      const text = d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+      document.getElementById('dateText').textContent = 'See you on ' + text + ' 🌹';
+      goTo('screenDate');
+    }
+
+    function moveNo(e) {
+      if (e) e.preventDefault();
+      const btn = e.currentTarget;
+      btn.style.transition = 'transform 0.2s';
+      const x = Math.random() * 240 - 120;
+      const y = Math.random() * 80 - 40;
+      btn.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    }
+    function goTo(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === 'screen2' || id === 'screen3') {
+        launchHearts();
+      }
+    }
+
+    function launchHearts() {
+      const container = document.getElementById('hearts');
+      for (let i = 0; i < 15; i++) {
+        const h = document.createElement('span');
+        h.className = 'heart';
+        h.textContent = ['💖', '💕', '💗'][Math.floor(Math.random() * 3)];
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = (3 + Math.random() * 3) + 's';
+        h.style.animationDelay = Math.random() * 2 + 's';
+        container.appendChild(h);
+        setTimeout(() => h.remove(), 7000);
+      }
+    }
+  </script>
+
+</body>
+</html>
